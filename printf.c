@@ -6,7 +6,7 @@
 int _printf(const char *format, ...)
 {
     int num_arg = strlen(format);
-    int i;
+    int i, j;
     char size;
      char *r;
 
@@ -26,7 +26,17 @@ int _printf(const char *format, ...)
             r = va_arg(args, char*);
             printf("%s", r);
         }
-        
+	else if (format[i] == '%' && (format[i + 1] == 'd' || format[i + 1] == 'i'))
+	{
+		i++;
+		j = va_arg(args, int);
+		printf("%d", j);
+	}
+	else if (format[i] == '%' && format[i + 1] == '%')
+	{
+		i++;
+		printf("%");
+	}
         else
         {
             printf("%c", format[i]);
